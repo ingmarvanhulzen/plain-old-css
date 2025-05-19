@@ -1,26 +1,74 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  --color-apple-dark: oklch(0.26 0.06 245.17);
+  --color-apple-light: oklch(0.6 0.08 243.27);
+  --color-apple-text: oklch(0.62 0.01 0);
+  --color-apple-secondary: oklch(0.99 0 0);
+  --color-apple-accent: oklch(0.23 0 0);
+  --font-apple: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --animate-text-fade: text-fade linear both;
+  --animate-text-fade-top: text-fade-top linear both;
+  --animate-scale: scale linear both;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  @keyframes scale {
+    from {
+      transform: scale(0.65);
+    }
+  }
+
+  @keyframes text-fade {
+    from {
+      opacity: 0;
+      transform: translateY(1rem);
+    }
+  }
+
+  @keyframes text-fade-top {
+    from {
+      opacity: 0;
+      transform: translateY(-1rem);
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@utility animate-timeline-view {
+  animation-timeline: view();
+}
+
+@utility animate-timeline-scroll {
+  animation-timeline: scroll();
+}
+
+@utility animate-range-* {
+  animation-range: --value([ *]);
+}
+
+@layer base {
+  .apple-title {
+    @apply text-6xl leading-[normal] bg-gradient-to-r from-apple-dark to-apple-light bg-clip-text text-transparent w-fit mb-8 -ml-[3px];
+  }
+
+  .apple-subtitle {
+    @apply text-lg text-apple-accent uppercase;
+  }
+
+  .apple-body {
+    @apply text-2xl text-apple-text mb-8;
+  }
+
+  .apple-body em {
+    @apply text-apple-accent not-italic;
+  }
+
+  .content {
+    @apply max-w-[980px] mx-auto;
+  }
+
+  .timeline-view {
+    animation-timeline: view();
+    animation-range: 5vh 20vh;
+  }
 }

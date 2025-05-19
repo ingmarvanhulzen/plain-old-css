@@ -1,0 +1,213 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  --gradient-start: #022640;
+  --gradient-end: #5786ab;
+  background-image: linear-gradient(
+    90deg,
+    var(--gradient-start),
+    var(--gradient-end)
+  );
+  font-size: 4.5rem;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  width: fit-content;
+  margin-top: 0;
+  margin-bottom: 2rem;
+}
+
+h2 {
+  font-size: 1rem;
+  margin-bottom: 0;
+  color: #1d1d1f;
+  width: fit-content;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.content h1 {
+  margin-left: -3px;
+}
+
+p {
+  font-size: 1.5rem;
+  color: #86868b;
+  margin-bottom: 2rem;
+}
+
+em {
+  color: #1d1d1f;
+  font-style: normal;
+}
+
+img {
+  border-radius: 4px;
+  max-width: 100%;
+  height: auto;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+}
+
+.content {
+  margin-inline: auto;
+  max-width: 980px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 2rem;
+  width: 100%;
+  height: 640px;
+}
+
+.grid > div {
+  background: #fbfbfb;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid > .span-2 {
+  grid-row: span 2;
+}
+
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0.25rem;
+  background-color: #5786ab;
+  z-index: 9999;
+}
+
+.progress {
+  animation-timeline: scroll();
+  animation-name: fill;
+  animation-fill-mode: both;
+  animation-duration: 1ms;
+  animation-timing-function: linear;
+}
+
+@keyframes fill {
+  from {
+    width: 0%;
+  }
+}
+
+.image-scaler {
+  animation-timeline: view();
+  animation-name: scale;
+  animation-fill-mode: both;
+  animation-duration: 1ms;
+  animation-timing-function: linear;
+  animation-range: 10vh 60vh;
+  transform-origin: top center;
+}
+
+@keyframes scale {
+  from {
+    transform: scale(0.65);
+  }
+}
+
+.text-fader {
+  animation-timeline: view();
+  animation-name: text-fade;
+  animation-fill-mode: both;
+  animation-duration: 1ms;
+  animation-timing-function: linear;
+  animation-range: 5vh 20vh;
+}
+
+.text-fader.top {
+  animation-name: text-fade-top;
+}
+
+@keyframes text-fade {
+  from {
+    opacity: 0;
+    transform: translateY(4rem);
+  }
+}
+
+@keyframes text-fade-top {
+  from {
+    opacity: 0;
+    transform: translateY(-4rem);
+  }
+}
+
+.grid > div > img {
+  animation-timeline: view();
+  animation-name: fade;
+  animation-fill-mode: both;
+  animation-duration: 1ms;
+  animation-timing-function: linear;
+  animation-range: 20vh 60vh;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes text-fade-out {
+  to {
+    opacity: 0;
+    transform: translateY(4rem);
+  }
+}
+
+@keyframes text-fade-out-top {
+  to {
+    opacity: 0;
+    transform: translateY(-4rem);
+  }
+}
+
+@keyframes trigger {
+  to {
+    --animate: true;
+  }
+}
+
+.box {
+  animation: trigger steps(1) both, fade linear both;
+  animation-timeline: view();
+  animation-range: contain 1% contain 0%;
+}
+
+.text {
+  animation: text-fade-out 600ms ease forwards;
+}
+
+@container style(--animate: true) {
+  .text {
+    animation-name: text-fade;
+  }
+}
+
+.text.top {
+  animation-name: text-fade-out-top;
+}
+
+@container style(--animate: true) {
+  .text.top {
+    animation-name: text-fade-top;
+  }
+}
